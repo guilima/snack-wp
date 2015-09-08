@@ -3,69 +3,59 @@
 <!--[if IE 7]>    <html class="no-js ie7" <?php language_attributes(); ?>>     <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8" <?php language_attributes(); ?>>     <![endif]-->
 <!--[if IE 9]>    <html class="no-js ie9" <?php language_attributes(); ?>>     <![endif]-->
-<html class="no-js" <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?>>
 <head>
 
-    <title><?php wp_title(""); ?></title>
+<title><?php global $page, $paged; wp_title( '-', true, 'right' ); bloginfo( 'name' ); $site_description = get_bloginfo( 'description', 'display' ); if ( $site_description && ( is_home() || is_front_page() ) ) echo " | $site_description"; if ( $paged >= 2 || $page >= 2 ) echo ' | ' . sprintf( __( 'Page %s', 'twentyten' ), max( $paged, $page ) );	?></title>
 
-    <!-- Metas -->
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Metas -->
+<meta charset="<?php bloginfo( 'charset' ); ?>" />
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=""> 
+<meta name="author" content="A2 Comunicação">
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Facebook -->
+<meta property="fb:app_id" content="218733564947932" />
+<meta property="fb:admins" content="100003036613503" />
+<meta property="og:site_name" content=""/>
+<meta property="og:title" content="<?php wp_title(); ?>" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/avatar.jpg" />
 
-    <?php wp_head(); ?>
+<!-- Favicons -->
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <!-- Html5 Tags && Media Queries -->
-    <!--[if lt IE 9]>
-        <script src="<?php echo get_template_directory_uri(); ?>/build/js/libs/html5shiv_respond.min.js"></script>
-    <![endif]-->
+<!-- CSS Custom -->
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/main.css">
 
-    <script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    e.src='https://www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X','auto');
-    ga('require', 'displayfeatures');
-    ga('send', 'pageview');
-    </script>
+<!-- Modernizr -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
+<!-- Respond -->
+<!--[if lt IE 9]>
+<script src="<?php echo get_template_directory_uri(); ?>/js/libs/respond.min.js"></script>
+<![endif]-->
+
+<?php wp_head(); ?>
+
+<!-- Verif Mobile -->
+<?php
+   require_once(get_template_directory().'/in/mobile_detect.php');
+   $detect = new Mobile_Detect();
+
+   $isMobile = $detect->isMobile();
+   $isTablet = $detect->isTablet();
+
+   $notMobile = ! $isMobile || $isTablet;
+   $onlyMobile = $isMobile && ! $isTablet;
+?>    
 </head>
 <body <?php body_class(); ?>>
-    <a href="#conteudo" class="sr-only go-content" tabindex="1" accesskey="1">Ir para conteúdo</a>
-
-    <!-- Header -->
-    <header class="header" role="banner">
-        <div class="row">
-
-            <!-- Logo -->
-            <h1 class="logo">
-                <a class="hover" href="<?php echo home_url( '/' ); ?>">
-                    <img src="<?php echo get_template_directory_uri(); ?>/build/img/logo.png" alt="">
-                </a>
-            </h1>
-
-            <!-- Menu -->
-            <nav aria-label="main navigation" role="navigation" class="navbar">
-                <?php
-                    $args = array(
-                        'theme_location'    => 'primary',
-                        'container'         => '',
-                        'container_class'   => '',
-                        'menu_class'        => 'nav-menu',
-                        'items_wrap'        => '<ul class="%2$s" role="menubar" id="main-menu">%3$s</ul>'
-                        );
-                    wp_nav_menu( $args );
-                ?>
-            </nav>
-        </div>
-    </header>
-
-

@@ -1,4 +1,5 @@
 <?php get_header(); ?>
-    <main role="main">
-    </main>
+   <div class="container">
+      
+   </div>
 <?php get_footer(); ?>

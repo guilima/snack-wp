@@ -1,9 +1,4 @@
+/wp-content/uploads
+/wp-config.php
 /node_modules
-/components
-.buildpath
-.project
-.idea
-.settings/
-/styleguide/lib/vendor
-
-
+.htaccess
